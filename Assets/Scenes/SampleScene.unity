@@ -3299,7 +3299,7 @@ Transform:
   m_GameObject: {fileID: 1494175834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35355, y: 7.3, z: 0.35355}
+  m_LocalPosition: {x: 0.35355, y: 302, z: 0.35355}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3348,8 +3348,15 @@ MonoBehaviour:
   Camera: {fileID: 330585543}
   CameraTarget: {fileID: 1494175838}
   speed: 10
-  smoothtime: 0.2
+  smoothtime: 0.16
   Offset: {x: 0, y: 1, z: -5}
+  gravitationalAcceleration: 0
+  AirResistance: 0
+  CharacterMass: 0
+  DragCoefficient: 0
+  CrossSectionnalArea:
+  - 0
+  - 0
 --- !u!114 &1494175841
 MonoBehaviour:
   m_ObjectHideFlags: 0

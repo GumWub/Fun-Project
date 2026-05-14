@@ -11,8 +11,12 @@ public class PlayerMovement : MovementBluePrint
     [SerializeField] private float smoothtime;
     [SerializeField] private Vector3 Offset;
 
+    private float Velocity;
+
     private Vector3 velocity;
     private Vector3 GravityVector;
+
+    private Vector3 CurrentGravitySpeed;
 
     private void Awake()
     {
@@ -22,13 +26,18 @@ public class PlayerMovement : MovementBluePrint
 
     private void Update()
     {
-        if (!characterController.isGrounded)
-            characterController.Move(GravityVector * Time.deltaTime);
-
-
+        if (!characterController.isGrounded) 
+        {
+            CurrentGravitySpeed.y -= 9.81f * Time.deltaTime; 
+        }
+        else
+        {
+            CurrentGravitySpeed.y = 0;
+        }
+        characterController.Move(CurrentGravitySpeed);
     }
 
-    private void LateUpdate()
+    private void LateUpdate() 
     {
         Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, CameraTarget.position + Offset, ref velocity, smoothtime, speed);
     }
