@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerMovement : MovementBluePrint
 {
+
+    [SerializeField] private GameManager gameManager;
+
     [SerializeField] private uint MoveSpeed;
     [SerializeField] private uint GravityForce;
     [SerializeField] private CharacterController characterController;
@@ -28,7 +31,7 @@ public class PlayerMovement : MovementBluePrint
     {
         if (!characterController.isGrounded) 
         {
-            CurrentGravitySpeed.y -= 9.81f * Time.deltaTime; 
+            CurrentGravitySpeed.y -= gameManager.CurrentEnvironment.GravitationalAcceleration * Time.deltaTime; 
         }
         else
         {

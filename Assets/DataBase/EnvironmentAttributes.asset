@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2336b11d2a61f458ed6c6d961519cb, type: 3}
   m_Name: EnvironmentAttributes
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentDB
-  EnvironmentAttributes: []
+  EnvironmentAttributes:
+  - name: Earth
+    gravitationalAcceleration: 9.81
+    AirDensity: 1.225
