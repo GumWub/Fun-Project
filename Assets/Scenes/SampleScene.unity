@@ -1278,8 +1278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   _playerPosition: {fileID: 1494175838}
-  _smoothTime: 0.16
-  _maxFollowSpeed: 10
+  _maxFollowSpeed: 20
+  _cameraRadius: 7
 --- !u!1 &386801215
 GameObject:
   m_ObjectHideFlags: 0
