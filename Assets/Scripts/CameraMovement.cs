@@ -3,11 +3,15 @@ using UnityEngine;
 public class CameraMovement : CameraBluePrint
 {
     [SerializeField] private Transform _playerPosition;
-    [SerializeField] private float _maxFollowSpeed = 20f;//recommended value: PlayerSpeed * 2
+    [SerializeField] private float _followSpeed = 20f;//recommended value: PlayerSpeed * 2
     [SerializeField] private float _cameraRadius;
 
+    private Vector3 _camRotation;
 
-    private Vector3 _velocity;
+    private void Awake()
+    {
+        _camRotation = Vector3.zero;
+    }
 
     private void LateUpdate()
     {
@@ -16,18 +20,14 @@ public class CameraMovement : CameraBluePrint
 
     public override void Follow(Vector3 targetPosition)
     {
-        transform.position = Vector3.Lerp(transform.position, targetPosition - transform.forward * _cameraRadius, 1 - Mathf.Exp(-_maxFollowSpeed * Time.deltaTime));
+        transform.position = Vector3.Lerp(transform.position, targetPosition - transform.forward * _cameraRadius, 1 - Mathf.Exp(-_followSpeed * Time.deltaTime));
     }
 
     public override void Rotate(Vector3 rotation)
     {
-        Vector3 camRotation = transform.rotation.eulerAngles;
-        camRotation += rotation;
-        if(Mathf.Abs(camRotation.x) > 90)
-        {
-            
-        }
-        transform.rotation = Quaternion.Euler(camRotation);
-        if(transform.rotation.x > 90)
+        
+        _camRotation += rotation;
+        _camRotation.x = Mathf.Clamp(_camRotation.x, -89, 89);
+        transform.rotation = Quaternion.Euler(_camRotation);
     }
 }
