@@ -71,9 +71,6 @@ public class GameManagerEditor : Editor
                 gm.HandleEnvironmentSelection(gm.CurrentEnvironmentIndex);
             }
 
-            EditorPrefs.SetInt("CurrentCharacterIndex", gm.CurrentCharacterIndex);
-            EditorPrefs.SetInt("CurrentEnvironment", gm.CurrentEnvironmentIndex);
-
             EditorUtility.SetDirty(gm);
         }
 

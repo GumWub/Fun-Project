@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CharacterAttributes
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAttributesDB
   characterAttributes:
-  - CharacterName: TestCapsule
-    CharacterMass: 50
+  - Name: Capsule
+    Mass: 10
     DragCoefficient: 1
     CrossSectionnalArea:
     - 0.5

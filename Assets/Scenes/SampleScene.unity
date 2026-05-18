@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1264,6 +1265,21 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f86d1947663b624eb95f89922320e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
+  _playerPosition: {fileID: 1494175838}
+  _smoothTime: 0.16
+  _maxFollowSpeed: 10
 --- !u!1 &386801215
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,14 +3358,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87c07c09bd51ba4f8c82751afc95e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  MoveSpeed: 5
-  GravityForce: 1
-  characterController: {fileID: 1494175839}
-  Camera: {fileID: 330585543}
-  CameraTarget: {fileID: 1494175838}
-  speed: 10
-  smoothtime: 0.16
-  Offset: {x: 0, y: 1, z: -5}
+  _moveSpeed: 10
+  _characterController: {fileID: 1494175839}
+  CurrentCharacter:
+    Name: 
+    Mass: 0
+    DragCoefficient: 0
+    CrossSectionnalArea:
+    - 0
+    - 0
+    - 0
+  CurrentEnvironment:
+    Name: 
+    GravitationalAcceleration: 0
+    AirDensity: 0
 --- !u!114 &1494175841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3362,7 +3384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe7ea8580f27cc48a44cbd1123bd0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  movement: {fileID: 1494175840}
+  _playerMovement: {fileID: 1494175840}
+  _cameraMovement: {fileID: 330585548}
 --- !u!1 &1521162347
 GameObject:
   m_ObjectHideFlags: 0
@@ -3392,8 +3415,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcee7f82264943419a9e41ae0e4d298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  CharacterDB: {fileID: 0}
-  EnvironmentDB: {fileID: 0}
+  playerMovement: {fileID: 1494175840}
+  CharacterDB: {fileID: 11400000, guid: ae74da46eb0fa1d4d9a8404ae1a0a23c, type: 2}
+  CurrentCharacterIndex: 0
+  EnvironmentDB: {fileID: 11400000, guid: dad3f206b23e02a448235bec6c2637bd, type: 2}
+  CurrentEnvironmentIndex: 0
 --- !u!4 &1521162349
 Transform:
   m_ObjectHideFlags: 0

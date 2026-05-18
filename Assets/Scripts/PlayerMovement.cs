@@ -3,58 +3,49 @@ using UnityEngine;
 public class PlayerMovement : MovementBluePrint
 {
 
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private uint _moveSpeed;
+    [SerializeField] private CharacterController _characterController;
 
-    [SerializeField] private uint MoveSpeed;
-    [SerializeField] private uint GravityForce;
-    [SerializeField] private CharacterController characterController;
-    [SerializeField] private GameObject Camera;
-    [SerializeField] private Transform CameraTarget;
-    [SerializeField] private float speed;
-    [SerializeField] private float smoothtime;
-    [SerializeField] private Vector3 Offset;
+    [HideInInspector] public CharacterAttributesBluePrint CurrentCharacter;
+    [HideInInspector] public EnvironmentPropertiesBluePrint CurrentEnvironment;
 
-    private float Velocity;
-
-    private Vector3 velocity;
-    private Vector3 GravityVector;
-
-    private Vector3 CurrentGravitySpeed;
+    private Vector3 _currentGravitySpeed;
 
     private void Awake()
     {
-        GravityVector = Vector3.zero;
-        GravityVector.y = -GravityForce;
     }
 
     private void Update()
     {
-        if (!characterController.isGrounded) 
+        RaycastHit rayCast;
+
+        if (!_characterController.isGrounded) 
         {
-            CurrentGravitySpeed.y -= gameManager.CurrentEnvironment.GravitationalAcceleration * Time.deltaTime; 
+            Debug.DrawRay(transform.position, -transform.up * 10f, Color.green);
+            if (Physics.Raycast(transform.position, -transform.up, out rayCast, 10f))
+            {
+                Debug.Log(rayCast.collider.name);
+            }
+            _currentGravitySpeed.y -= CurrentEnvironment.GravitationalAcceleration * Time.deltaTime; 
         }
         else
         {
-            CurrentGravitySpeed.y = 0;
+            _currentGravitySpeed.y = 0;
         }
-        characterController.Move(CurrentGravitySpeed);
+        _characterController.Move(_currentGravitySpeed);
+    }
+    public override void Move(Vector3 direction, Vector3 rotation) 
+    {
+        Vector3 playerRotation = transform.rotation.eulerAngles + rotation;
+        transform.rotation = Quaternion.Euler(playerRotation);
+        Vector3 movement = (transform.right * direction.x + transform.up * direction.y + transform.forward * direction.z) * _moveSpeed * Time.deltaTime;
+        _characterController.Move(movement);
     }
 
-    private void LateUpdate() 
-    {
-        Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, CameraTarget.position + Offset, ref velocity, smoothtime, speed);
-    }
-    public override void Move(Vector3 Direction) 
-    {
-        Vector3 movement = Direction * MoveSpeed * Time.deltaTime;
-        characterController.Move(movement);
-    }
-
-    public override void fly()
+    public override void Fly()
     {
 
     }
-
 
     public override void Jump()
     {

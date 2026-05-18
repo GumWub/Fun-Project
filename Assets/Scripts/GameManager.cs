@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("references")]
+    [SerializeField] private PlayerMovement playerMovement;
+
+    [Space(20f)]
     [Header("Databases")]
     [SerializeField] public CharacterAttributesDB CharacterDB;
     [HideInInspector] public int CurrentCharacterIndex;
@@ -9,31 +13,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] public EnvironmentDB EnvironmentDB;
     [HideInInspector] public int CurrentEnvironmentIndex;
 
-    //Current Character Attributes
-    [HideInInspector] public CharacterAttributesBluePrint CurrentCharacter;
-
-    //Current Environment Attributes
-    [HideInInspector] public EnvironmentPropertiesBluePrint CurrentEnvironment;
-
+    private void Awake()
+    {
+        if (playerMovement == null)
+        {
+            playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+        }
+    }
 
     private void Start()
     {
-        HandleCharacterSelection();
-        HandleEnvironmentSelection();
+        HandleCharacterSelection(CurrentCharacterIndex);
+        HandleEnvironmentSelection(CurrentEnvironmentIndex);
     }
-
     public void HandleCharacterSelection(int index)
     {
-        CurrentCharacter.Name = CharacterDB.characterAttributes[CurrentCharacterIndex].Name;
-        CurrentCharacter.Mass = CharacterDB.characterAttributes[CurrentCharacterIndex].Mass;
-        CurrentCharacter.DragCoefficient = CharacterDB.characterAttributes[CurrentCharacterIndex].DragCoefficient;
-        CurrentCharacter.CrossSectionnalArea = CharacterDB.characterAttributes[CurrentCharacterIndex].CrossSectionnalArea;
+        playerMovement.CurrentCharacter = CharacterDB.characterAttributes[index];
     }
 
     public void HandleEnvironmentSelection(int index)
     {
-        CurrentEnvironment.Name = EnvironmentDB.EnvironmentProperties[CurrentEnvironmentIndex].Name;
-        CurrentEnvironment.GravitationalAcceleration = EnvironmentDB.EnvironmentProperties[CurrentEnvironmentIndex].GravitationalAcceleration;
-        CurrentEnvironment.AirDensity = EnvironmentDB.EnvironmentProperties[CurrentEnvironmentIndex].AirDensity;
+        playerMovement.CurrentEnvironment = EnvironmentDB.EnvironmentProperties[index];
     }
 }
